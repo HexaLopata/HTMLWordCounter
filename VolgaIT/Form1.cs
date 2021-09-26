@@ -1,21 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using VolgaIT.Views;
 
 namespace VolgaIT
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form, IMainView
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
 
+        void IView.Close()
+        {
+            FormsManager.Instance.Close(this);
+        }
+
+        void IView.Show()
+        {
+            FormsManager.Instance.Show(this);
+        }
+
+        void IView.ShowErrorMessage(string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

@@ -6,4 +6,9 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VolgaIT.Presenters\VolgaIT.Presenters.csproj" />
+    <ProjectReference Include="..\VolgaIT.Views\VolgaIT.Views.csproj" />
+  </ItemGroup>
+
 </Project>
