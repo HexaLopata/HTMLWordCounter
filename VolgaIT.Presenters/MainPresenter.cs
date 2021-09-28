@@ -10,11 +10,11 @@ namespace VolgaIT.Presenters
         public MainPresenter(ViewFactory viewFactory)
         {
             _viewFactory = viewFactory;
+            _view = _viewFactory.MainView;
         }
 
         public void Run()
         {
-            _view = _viewFactory.MainView;
             _view.Show();
         }
     }

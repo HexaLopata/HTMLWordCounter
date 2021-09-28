@@ -40,7 +40,7 @@ namespace VolgaIT.Views
             if (!_forms.Contains(form))
                 throw new ArgumentException("Произведены действия с неизвестной формой");
 
-            if(_forms.Count == 1)
+            if (_forms.Count == 1)
             {
                 Application.Exit();
             }

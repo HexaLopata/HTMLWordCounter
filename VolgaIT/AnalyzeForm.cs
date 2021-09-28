@@ -1,14 +1,18 @@
-﻿using System.Windows.Forms;
-using VolgaIT.Views;
+﻿using VolgaIT.Views;
+using System.Windows.Forms;
+using System;
 
 namespace VolgaIT
 {
-    public partial class MainForm : Form, IMainView
+    public partial class AnalyzeForm : Form, IAnalyzerView
     {
-        public MainForm()
+        public AnalyzeForm()
         {
             InitializeComponent();
         }
+
+        public event EventHandler<string> AnalizeButtonClicked;
+        public event EventHandler CancelButtonClicked;
 
         void IView.Close()
         {
