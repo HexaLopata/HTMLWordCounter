@@ -7,7 +7,7 @@ namespace VolgaIT.Views
         /// <summary>
         /// Должно срабатывать при выборе файла для анализа и передать путь для файла
         /// </summary>
-        event EventHandler<string> AnalizeButtonClicked;
-        event EventHandler CancelButtonClicked;
+        event Action<string> AnalizeButtonClicked;
+        event Action CancelButtonClicked;
     }
 }

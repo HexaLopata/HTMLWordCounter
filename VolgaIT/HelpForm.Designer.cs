@@ -1,7 +1,7 @@
 ﻿
 namespace VolgaIT
 {
-    partial class AnalyzeForm
+    partial class HelpForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,55 +29,59 @@ namespace VolgaIT
         /// </summary>
         private void InitializeComponent()
         {
+            this.label1 = new System.Windows.Forms.Label();
+            this.HelpText = new System.Windows.Forms.Label();
             this.BackButton = new System.Windows.Forms.Button();
-            this.AnalyzeButton = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 23);
+            this.label1.TabIndex = 0;
+            // 
+            // HelpText
+            // 
+            this.HelpText.AutoSize = true;
+            this.HelpText.Location = new System.Drawing.Point(129, 23);
+            this.HelpText.Name = "HelpText";
+            this.HelpText.Size = new System.Drawing.Size(174, 17);
+            this.HelpText.TabIndex = 1;
+            this.HelpText.Text = "Типа много полезной инфы";
             // 
             // BackButton
             // 
-            this.BackButton.Location = new System.Drawing.Point(12, 258);
+            this.BackButton.Location = new System.Drawing.Point(176, 92);
             this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(155, 25);
-            this.BackButton.TabIndex = 0;
+            this.BackButton.Size = new System.Drawing.Size(83, 25);
+            this.BackButton.TabIndex = 2;
             this.BackButton.Text = "Назад";
             this.BackButton.UseVisualStyleBackColor = true;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
-            // AnalyzeButton
-            // 
-            this.AnalyzeButton.Location = new System.Drawing.Point(402, 258);
-            this.AnalyzeButton.Name = "AnalyzeButton";
-            this.AnalyzeButton.Size = new System.Drawing.Size(155, 25);
-            this.AnalyzeButton.TabIndex = 1;
-            this.AnalyzeButton.Text = "Анализировать";
-            this.AnalyzeButton.UseVisualStyleBackColor = true;
-            this.AnalyzeButton.Click += new System.EventHandler(this.AnalyzeButton_Click);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // AnalyzeForm
+            // HelpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(569, 295);
-            this.Controls.Add(this.AnalyzeButton);
+            this.ClientSize = new System.Drawing.Size(449, 129);
             this.Controls.Add(this.BackButton);
+            this.Controls.Add(this.HelpText);
+            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "AnalyzeForm";
+            this.Name = "HelpForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AnalizeForm";
+            this.Text = "HelpForm";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label HelpText;
         private System.Windows.Forms.Button BackButton;
-        private System.Windows.Forms.Button AnalyzeButton;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace VolgaIT.BL.ReadingStates
 {
     public class CharWaitingState : IHTMLReadingState
     {
-        private char _charForWaiting;
-        private IHTMLReadingState _transitionState;
+        private readonly char _charForWaiting;
+        private readonly IHTMLReadingState _transitionState;
 
         public CharWaitingState(char charForWaiting, IHTMLReadingState transitionState)
         {

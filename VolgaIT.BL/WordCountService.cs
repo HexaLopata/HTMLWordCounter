@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using VolgaIT.BL.ReadingStates;
 
 namespace VolgaIT.BL
@@ -17,16 +19,20 @@ namespace VolgaIT.BL
                 WordSaver.IgnoreCase = value;
             }
         }
-        public int MaxWordLength { get; set; }
-        public int MaxTagLength => 20;
-        public List<string> IgnoredTags { get; } = new List<string>();
+        public int MaxWordLength { get; set; } = 100;
+        public int MaxTagLength => 15;
+        public List<string> IgnoredTags { get; } = new List<string>() { "style" };
         public char[] Separators => _separators;
         public bool IsIgnoringCurrentTag { get; set; }
         public bool IsCurrentTagClosed { get; set; }
         public IWordSaver WordSaver { get; }
+        public char[] IgnoredChars => _ignoredChars;
+        public string[] NeitherWordNorSeparators => _neitherWordNorSeparators;
 
-        private IHTMLReadingState _state;
-        private char[] _separators = new char[] { ' ', ',', '.', ':', '!', '?', ';', '[', ']', '(', ')', '\n', '\t', '\r' };
+        private IHTMLReadingState _state = new WordReadingState();
+        private readonly char[] _separators = new char[] { ' ', ',', '.', ':', '!', '?', ';', '[', ']', '(', ')', '\n', '\t', '\r', '"', '{', '}' };
+        private readonly char[] _ignoredChars = new char[0];
+        private readonly string[] _neitherWordNorSeparators = new string[] { "-" };
 
         public WordCountService(IWordSaver wordSaver)
         {
@@ -43,6 +49,11 @@ namespace VolgaIT.BL
                 }
                 while (!reader.EndOfStream);
             }
+            if (_state.GetType() != typeof(WordReadingState))
+            {
+                throw new Exception("Переданный html файл содержит ошибки синтаксиса " + _state.GetType());
+            }
+            WordSaver.SaveAll();
         }
 
         public void Analyze(string path)
@@ -53,6 +64,16 @@ namespace VolgaIT.BL
         public void ChangeState(IHTMLReadingState state)
         {
             _state = state;
+        }
+
+        public async Task AnalyzeAsync(string path)
+        {
+            await Task.Run(() => Analyze(path));
+        }
+
+        public async Task AnalyzeAsync(StreamReader reader)
+        {
+            await Task.Run(() => Analyze(reader));
         }
     }
 }

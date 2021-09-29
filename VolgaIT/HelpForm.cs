@@ -1,18 +1,17 @@
-﻿using VolgaIT.Views;
+﻿using System;
 using System.Windows.Forms;
-using System;
+using VolgaIT.Views;
 
 namespace VolgaIT
 {
-    public partial class AnalyzeForm : Form, IAnalyzerView
+    public partial class HelpForm : Form, IHelpView
     {
-        public AnalyzeForm()
+        public event Action CancelButtonClicked;
+
+        public HelpForm()
         {
             InitializeComponent();
         }
-
-        public event Action<string> AnalizeButtonClicked;
-        public event Action CancelButtonClicked;
 
         void IView.Close()
         {
@@ -32,15 +31,6 @@ namespace VolgaIT
         private void BackButton_Click(object sender, EventArgs e)
         {
             CancelButtonClicked?.Invoke();
-        }
-
-        private void AnalyzeButton_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.Filter = "html files (*.html)|*html|txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            if(openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                AnalizeButtonClicked?.Invoke(openFileDialog1.FileName);
-            }
         }
     }
 }

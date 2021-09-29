@@ -1,20 +1,20 @@
 ﻿using System;
+using System.Threading.Tasks;
 using VolgaIT.BL;
 using VolgaIT.Views;
 
 namespace VolgaIT.Presenters
 {
-    public class AnalizerPresenter : IPresenter
+    public class AnalizerPresenter : PresenterBase, IPresenter
     {
-        private IAnalyzerView _view;
-        private IWordCountService _wordCounter;
-        private ViewFactory _viewFactory;
+        private readonly IAnalyzerView _view;
+        private IWaitingView _waitingView;
+        private readonly IWordCountService _wordCounter;
 
-        public AnalizerPresenter(ViewFactory viewFactory, IWordCountService wordCounter)
+        public AnalizerPresenter(ViewFactory viewFactory, ServiceFactory serviceFactory) : base(viewFactory, serviceFactory)
         {
-            _viewFactory = viewFactory;
             _view = viewFactory.AnalyzerView;
-            _wordCounter = wordCounter;
+            _wordCounter = _serviceFactory.WordCountService;
             SubscribeOnViewEvents();
         }
 
@@ -29,16 +29,56 @@ namespace VolgaIT.Presenters
             _view.CancelButtonClicked += OnCancel;
         }
 
-        private void OnCancel(object sender, EventArgs e)
+        private void OnCancel()
         {
-            var newPresenter = new MainPresenter(_viewFactory);
-            newPresenter.Run();
+            new MainPresenter(_viewFactory, _serviceFactory).Run();
             _view.Close();
         }
 
-        private void OnAnalyze(object sender, string filePath)
+        private void OnAnalyze(string filePath)
         {
-            _wordCounter.Analyze(filePath);
+            try
+            {
+                StartAnalysis(filePath);
+                _waitingView = _viewFactory.WaitingView;
+                _waitingView.AnalysisAgainButtonClicked += AnalysisAgain;
+                _waitingView.Show();
+                _view.Hide();
+            }
+            catch (Exception ex)
+            {
+                _view.ShowErrorMessage("Произошла ошибка: " + ex.Message);
+            }
+        }
+
+        private void AnalysisAgain()
+        {
+            _view.Show();
+            _waitingView.Close();
+        }
+
+        private void OnAlalysisEnded()
+        {
+            _waitingView.OnAnalysisEnded();
+        }
+
+        private async Task StartAnalysis(string filePath)
+        {
+            try
+            {
+                var task = Task.Run(() => _wordCounter.AnalyzeAsync(filePath));
+                await task;
+                task.ContinueWith((t) =>
+                {
+                    OnAlalysisEnded();
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
+            catch (Exception ex)
+            {
+                _view.ShowErrorMessage("Произошла ошибка: " + ex.Message);
+                _view.Show();
+                _waitingView.Close();
+            }
         }
     }
 }

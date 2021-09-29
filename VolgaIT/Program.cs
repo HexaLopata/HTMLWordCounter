@@ -15,7 +15,7 @@ namespace VolgaIT
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var presenter = new MainPresenter(new FormsFactory());
+            var presenter = new MainPresenter(new FormsFactory(), new DefaultServiceFactory());
             presenter.Run();
         }
     }

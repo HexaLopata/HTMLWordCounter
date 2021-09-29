@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace VolgaIT.BL.ReadingStates
 {
@@ -26,6 +27,10 @@ namespace VolgaIT.BL.ReadingStates
                         wordCounter.ChangeState(new WordReadingState());
                     }
                 }
+            }
+            else if(c == '<')
+            {
+                throw new Exception("Переданный html файл содержит ошибки синтаксиса");
             }
         }
     }

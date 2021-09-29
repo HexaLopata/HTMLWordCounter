@@ -26,13 +26,16 @@ namespace VolgaIT.Views
             if (_forms.Count == 0)
             {
                 _context = new ApplicationContext(form);
+                _forms.Add(form);
                 Application.Run(_context);
             }
             else
             {
+                form.Show();
+                if (!_forms.Contains(form))
+                    _forms.Add(form);
                 _context.MainForm = form;
             }
-            _forms.Add(form);
         }
 
         public void Close(Form form)
@@ -40,15 +43,12 @@ namespace VolgaIT.Views
             if (!_forms.Contains(form))
                 throw new ArgumentException("Произведены действия с неизвестной формой");
 
-            if (_forms.Count == 1)
-            {
-                Application.Exit();
-            }
-            else
-            {
-                _forms.Remove(form);
+            _forms.Remove(form);
+            form.Close();
+            if (_forms.Count > 0)
                 _context.MainForm = _forms.Last();
-            }
+            else
+                Application.Exit();
         }
     }
 }

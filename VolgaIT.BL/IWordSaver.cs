@@ -5,5 +5,6 @@ namespace VolgaIT.BL
         bool IgnoreCase { get; set; }
         void AddWord(string word);
         void Clear();
+        void SaveAll();
     }
 }

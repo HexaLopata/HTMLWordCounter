@@ -5,7 +5,7 @@ namespace VolgaIT.BL.ReadingStates
 {
     public class TagReadingState : IHTMLReadingState
     {
-        private string _currentTag;
+        private string _currentTag = string.Empty;
 
         public void Read(WordCountService wordCounter, StreamReader reader)
         {
@@ -18,15 +18,18 @@ namespace VolgaIT.BL.ReadingStates
                     _currentTag = string.Empty;
                     wordCounter.ChangeState(new AttributeReadingState());
                     break;
+
                 case '>':
-                    if (!wordCounter.IsCurrentTagClosed)
+                    if (!wordCounter.IsCurrentTagClosed && wordCounter.IgnoredTags.Contains(_currentTag))
                     {
-                        if (wordCounter.IgnoredTags.Contains(_currentTag))
-                        {
-                            wordCounter.IsIgnoringCurrentTag = true;
-                        }
+                        wordCounter.IsIgnoringCurrentTag = true;
                     }
-                    if(wordCounter.IsIgnoringCurrentTag)
+                    else
+                    {
+                        wordCounter.IsIgnoringCurrentTag = false;
+                    }
+
+                    if (wordCounter.IsIgnoringCurrentTag)
                     {
                         wordCounter.ChangeState(new CharWaitingState('<', new TagReadingState()));
                     }
@@ -37,9 +40,12 @@ namespace VolgaIT.BL.ReadingStates
                     wordCounter.IsCurrentTagClosed = false;
                     _currentTag = string.Empty;
                     break;
+
                 case '/':
                     wordCounter.IsCurrentTagClosed = true;
                     break;
+                case '<':
+                    throw new Exception("Переданный html файл содержит ошибки синтаксиса");
 
                 default:
                     _currentTag += c;

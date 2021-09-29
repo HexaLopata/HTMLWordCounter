@@ -7,8 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VolgaIT.BL\VolgaIT.BL.csproj" />
     <ProjectReference Include="..\VolgaIT.Presenters\VolgaIT.Presenters.csproj" />
     <ProjectReference Include="..\VolgaIT.Views\VolgaIT.Views.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="HelpForm.resx">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Update="WaitingForm.resx">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

@@ -6,8 +6,8 @@ namespace VolgaIT
 {
     public partial class MainForm : Form, IMainView
     {
-        public event EventHandler AnalyzeButtonClicked;
-        public event EventHandler AboutButtonClicked;
+        public event Action AnalyzeButtonClicked;
+        public new event Action HelpButtonClicked;
 
         public MainForm()
         {
@@ -27,6 +27,16 @@ namespace VolgaIT
         void IView.ShowErrorMessage(string message)
         {
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void AnalyzeButton_Click(object sender, EventArgs e)
+        {
+            AnalyzeButtonClicked?.Invoke();
+        }
+
+        private void HelpButton_Click(object sender, EventArgs e)
+        {
+            HelpButtonClicked?.Invoke();
         }
     }
 }
