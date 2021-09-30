@@ -8,18 +8,28 @@ namespace VolgaIT.BL
     public class QuickFileWordSaver : IWordSaver
     {
         public bool IgnoreCase { get; set; }
+        public string FilePath
+        {
+            get => _filePath;
+            set => _filePath = value;
+        }
+
         private Dictionary<string, int> _words = new Dictionary<string, int>();
 
         private FileStream _writer;
-        private readonly string _filePath;
+        private string _filePath;
 
-        public QuickFileWordSaver(string filePath)
+        public QuickFileWordSaver(string filePath = "output.txt")
         {
+            Clear();
             _filePath = filePath;
         }
 
         public void AddWord(string word)
         {
+            if (IgnoreCase)
+                word = word.ToUpper();
+
             if (_words.ContainsKey(word))
             {
                 _words[word] += 1;
@@ -32,6 +42,8 @@ namespace VolgaIT.BL
 
         public void Clear()
         {
+            if (File.Exists(_filePath))
+                File.Delete(_filePath);
             _words.Clear();
         }
 

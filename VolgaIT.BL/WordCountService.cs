@@ -21,11 +21,11 @@ namespace VolgaIT.BL
         }
         public int MaxWordLength { get; set; } = 100;
         public int MaxTagLength => 15;
-        public List<string> IgnoredTags { get; } = new List<string>() { "style" };
+        public string[] IgnoredTags { get; set;  } = new string[] { "style", "script" };
         public char[] Separators => _separators;
         public bool IsIgnoringCurrentTag { get; set; }
         public bool IsCurrentTagClosed { get; set; }
-        public IWordSaver WordSaver { get; }
+        public IWordSaver WordSaver { get; set; }
         public char[] IgnoredChars => _ignoredChars;
         public string[] NeitherWordNorSeparators => _neitherWordNorSeparators;
 
@@ -33,10 +33,12 @@ namespace VolgaIT.BL
         private readonly char[] _separators = new char[] { ' ', ',', '.', ':', '!', '?', ';', '[', ']', '(', ')', '\n', '\t', '\r', '"', '{', '}' };
         private readonly char[] _ignoredChars = new char[0];
         private readonly string[] _neitherWordNorSeparators = new string[] { "-" };
+        private readonly IWordCounterConfigurator _configurator;
 
-        public WordCountService(IWordSaver wordSaver)
+        public WordCountService(IWordCounterConfigurator configurator = null)
         {
-            WordSaver = wordSaver;
+            if (configurator != null)
+                configurator.Configure(this);
         }
 
         public void Analyze(StreamReader reader)

@@ -7,13 +7,15 @@ namespace VolgaIT
     public partial class WaitingForm : Form, IWaitingView
     {
         public event Action AnalysisAgainButtonClicked;
+        public event Action OpenFileButtonClicked;
 
-        private readonly string _waitingMessage = "Обработка файла в процессе завершения. Когда она будет завершена, результат запишется в файл output.txt";
-        private readonly string _analysisEndedMessage = "Текст был успешно проанализирован, вы можете увидеть результат в файле output.txt";
+        private readonly string _waitingMessage = "Обработка файла в процессе завершения. Когда она будет завершена, результат запишется в указанный вами файл";
+        private readonly string _analysisEndedMessage = "Текст был успешно проанализирован, вы можете увидеть результат в созданном файле";
 
         public WaitingForm()
         {
             InitializeComponent();
+            
 
             InfoLabel.Text = _waitingMessage;
             AnalysisAgainButton.Hide();
@@ -43,6 +45,11 @@ namespace VolgaIT
         void IView.ShowErrorMessage(string message)
         {
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void OpenFileButton_Click(object sender, EventArgs e)
+        {
+            OpenFileButtonClicked?.Invoke();
         }
     }
 }

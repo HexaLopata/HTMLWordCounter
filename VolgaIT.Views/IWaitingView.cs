@@ -6,5 +6,6 @@ namespace VolgaIT.Views
     {
         void OnAnalysisEnded();
         event Action AnalysisAgainButtonClicked;
+        event Action OpenFileButtonClicked;
     }
 }
