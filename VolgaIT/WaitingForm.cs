@@ -16,14 +16,15 @@ namespace VolgaIT
         {
             InitializeComponent();
             
-
             InfoLabel.Text = _waitingMessage;
             AnalysisAgainButton.Hide();
+            OpenFileButton.Hide();
         }
 
         public void OnAnalysisEnded()
         {
             AnalysisAgainButton.Show();
+            OpenFileButton.Show();
             InfoLabel.Text = _analysisEndedMessage;
         }
 

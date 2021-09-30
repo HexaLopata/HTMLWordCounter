@@ -30,9 +30,10 @@ namespace VolgaIT.BL
         public string[] NeitherWordNorSeparators => _neitherWordNorSeparators;
 
         private IHTMLReadingState _state = new WordReadingState();
-        private readonly char[] _separators = new char[] { ' ', ',', '.', ':', '!', '?', ';', '[', ']', '(', ')', '\n', '\t', '\r', '"', '{', '}' };
+        private readonly char[] _separators = new char[]
+        { ' ', ',', '.', ':', '!', '?', ';', '[', ']', '(', ')', '\n', '\t', '\r', '"', '{', '}', '…', '*', '»', '«', '’', '/' };
         private readonly char[] _ignoredChars = new char[0];
-        private readonly string[] _neitherWordNorSeparators = new string[] { "-" };
+        private readonly string[] _neitherWordNorSeparators = new string[] { "-", "–" };
         private readonly IWordCounterConfigurator _configurator;
 
         public WordCountService(IWordCounterConfigurator configurator = null)
