@@ -33,8 +33,7 @@ namespace VolgaIT.BL
         private readonly char[] _separators = new char[]
         { ' ', ',', '.', ':', '!', '?', ';', '[', ']', '(', ')', '\n', '\t', '\r', '"', '{', '}', '…', '*', '»', '«', '’', '/' };
         private readonly char[] _ignoredChars = new char[0];
-        private readonly string[] _neitherWordNorSeparators = new string[] { "-", "–" };
-        private readonly IWordCounterConfigurator _configurator;
+        private readonly string[] _neitherWordNorSeparators = new string[] { "-", "–", "—" };
 
         public WordCountService(IWordCounterConfigurator configurator = null)
         {
@@ -54,7 +53,7 @@ namespace VolgaIT.BL
             }
             if (_state.GetType() != typeof(WordReadingState))
             {
-                throw new Exception("Переданный html файл содержит ошибки синтаксиса " + _state.GetType());
+                throw new Exception("Переданный html файл содержит ошибки синтаксиса");
             }
             WordSaver.SaveAll();
         }

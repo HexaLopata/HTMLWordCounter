@@ -16,34 +16,34 @@ namespace VolgaIT.BL.ReadingStates
                 case ' ':
                     if (wordCounter.IgnoredTags.Contains(_currentTag))
                         wordCounter.IsIgnoringCurrentTag = true;
-                    _currentTag = string.Empty;
-                    wordCounter.ChangeState(new AttributeReadingState());
+                    wordCounter.ChangeState(new AttributeReadingState(_currentTag));
                     break;
 
                 case '>':
-                    if (!wordCounter.IsCurrentTagClosed && wordCounter.IgnoredTags.Contains(_currentTag))
-                    {
-                        wordCounter.IsIgnoringCurrentTag = true;
-                    }
-                    else
-                    {
-                        wordCounter.IsIgnoringCurrentTag = false;
-                    }
+                    CheckForIgnoredTags(wordCounter);
 
                     if (wordCounter.IsIgnoringCurrentTag)
                     {
-                        wordCounter.ChangeState(new CharWaitingState('<', new TagReadingState()));
+                        wordCounter.ChangeState(new TagCheckingState(_currentTag));
                     }
                     else
                     {
                         wordCounter.ChangeState(new WordReadingState());
                     }
                     wordCounter.IsCurrentTagClosed = false;
-                    _currentTag = string.Empty;
                     break;
 
                 case '/':
                     wordCounter.IsCurrentTagClosed = true;
+                    if (_currentTag != string.Empty)
+                    {
+                        CheckForIgnoredTags(wordCounter);
+                        if (wordCounter.IsIgnoringCurrentTag)
+                        {
+                            wordCounter.ChangeState(new TagCheckingState(_currentTag));
+                        }
+                    }
+
                     break;
                 case '<':
                     throw new Exception("Переданный html файл содержит ошибки синтаксиса");
@@ -53,7 +53,18 @@ namespace VolgaIT.BL.ReadingStates
                     if (_currentTag.Length > wordCounter.MaxTagLength)
                         throw new Exception("Переданный html файл содержит ошибки синтаксиса");
                     break;
+            }
 
+            void CheckForIgnoredTags(WordCountService wordCounter)
+            {
+                if (!wordCounter.IsCurrentTagClosed && wordCounter.IgnoredTags.Contains(_currentTag))
+                {
+                    wordCounter.IsIgnoringCurrentTag = true;
+                }
+                else
+                {
+                    wordCounter.IsIgnoringCurrentTag = false;
+                }
             }
         }
     }
