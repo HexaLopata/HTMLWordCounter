@@ -29,7 +29,7 @@ namespace VolgaIT.BL.ReadingStates
                         CheckForIgnoredTags(wordCounter);
                         if (wordCounter.IsIgnoringCurrentTag)
                         {
-                            wordCounter.ChangeState(new TagCheckingState(_currentTag));
+                            wordCounter.ChangeState(new TagIgnoringState(_currentTag));
                         }
                     }
                 }
@@ -43,7 +43,7 @@ namespace VolgaIT.BL.ReadingStates
                     {
                         if (wordCounter.IsIgnoringCurrentTag)
                         {
-                            wordCounter.ChangeState(new TagCheckingState(_currentTag));
+                            wordCounter.ChangeState(new TagIgnoringState(_currentTag));
                         }
                         else
                         {
@@ -59,14 +59,8 @@ namespace VolgaIT.BL.ReadingStates
 
                 void CheckForIgnoredTags(WordCountService wordCounter)
                 {
-                    if (!wordCounter.IsCurrentTagClosed && wordCounter.IgnoredTags.Contains(_currentTag))
-                    {
-                        wordCounter.IsIgnoringCurrentTag = true;
-                    }
-                    else
-                    {
-                        wordCounter.IsIgnoringCurrentTag = false;
-                    }
+                    wordCounter.IsIgnoringCurrentTag = !wordCounter.IsCurrentTagClosed &&
+                                                        wordCounter.IgnoredTags.Contains(_currentTag);
                 }
             }
         }

@@ -29,6 +29,7 @@ namespace VolgaIT
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnalyzeForm));
             this.BackButton = new System.Windows.Forms.Button();
             this.AnalyzeButton = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -83,6 +84,11 @@ namespace VolgaIT
             // MaxWordLengthNumeric
             // 
             this.MaxWordLengthNumeric.Location = new System.Drawing.Point(250, 64);
+            this.MaxWordLengthNumeric.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
             this.MaxWordLengthNumeric.Name = "MaxWordLengthNumeric";
             this.MaxWordLengthNumeric.Size = new System.Drawing.Size(132, 25);
             this.MaxWordLengthNumeric.TabIndex = 3;
@@ -179,10 +185,11 @@ namespace VolgaIT
             this.Controls.Add(this.AnalyzeButton);
             this.Controls.Add(this.BackButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "AnalyzeForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AnalizeForm";
+            this.Text = "HTMLWordCounter";
             ((System.ComponentModel.ISupportInitialize)(this.MaxWordLengthNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

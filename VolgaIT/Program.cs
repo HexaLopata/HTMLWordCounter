@@ -18,6 +18,14 @@ namespace VolgaIT
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            var formsFactory = new ConfigurableFormsFactory()
+            {
+                GetMainViewAction = () => new MainForm(),
+                GetAnalyzerViewAction = () => new AnalyzeForm(),
+                GetHelpViewAction = () => new HelpForm(),
+                GetWaitingViewAction = () => new WaitingForm()
+            };
+
             var serviceFactory = new ConfigurableServiceFactory()
             {
                 GetWordCountServiceAction = () => new WordCountService(),
@@ -25,13 +33,13 @@ namespace VolgaIT
                 GetWordCounterConfiguratorAction = () =>
                 new JsonWordCounterConfigurator
                 (
-                    new QuickFileWordSaver(),
+                    new FileWordSaver(),
                     JSON_FILE_PATH
                 )
                 
             };
 
-            var presenter = new MainPresenter(new FormsFactory(), serviceFactory);
+            var presenter = new MainPresenter(formsFactory, serviceFactory);
             presenter.Run();
         }
     }

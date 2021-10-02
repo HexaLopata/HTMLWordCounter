@@ -29,6 +29,7 @@ namespace VolgaIT
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WaitingForm));
             this.AnalysisAgainButton = new System.Windows.Forms.Button();
             this.InfoLabel = new System.Windows.Forms.Label();
             this.OpenFileButton = new System.Windows.Forms.Button();
@@ -73,10 +74,11 @@ namespace VolgaIT
             this.Controls.Add(this.InfoLabel);
             this.Controls.Add(this.AnalysisAgainButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "WaitingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WaitingForm";
+            this.Text = "HTMLWordCounter";
             this.ResumeLayout(false);
 
         }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace VolgaIT.BL
 {
-    public class QuickFileWordSaver : IWordSaver
+    public class FileWordSaver : IWordSaver
     {
         public bool IgnoreCase { get; set; }
         public string FilePath
@@ -19,7 +19,7 @@ namespace VolgaIT.BL
         private FileStream _writer;
         private string _filePath;
 
-        public QuickFileWordSaver(string filePath = "output.txt")
+        public FileWordSaver(string filePath = "output.txt")
         {
             Clear();
             _filePath = filePath;

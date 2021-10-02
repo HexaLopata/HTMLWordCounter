@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VolgaIT.BL.ReadingStates
 {
-    public class TagCheckingState : IHTMLReadingState
+    public class TagIgnoringState : IHTMLReadingState
     {
         private string _currentTag = string.Empty;
         private bool _isReadingTag = false;
@@ -14,7 +14,7 @@ namespace VolgaIT.BL.ReadingStates
         private readonly string _ignoredTag;
         private char _previousChar;
 
-        public TagCheckingState(string ignoredTag)
+        public TagIgnoringState(string ignoredTag)
         {
             _ignoredTag = ignoredTag;
         }
