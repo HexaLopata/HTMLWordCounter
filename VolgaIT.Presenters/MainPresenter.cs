@@ -21,7 +21,7 @@ namespace VolgaIT.Presenters
 
         private void OnAnalyzeButtonClicked()
         {
-            new AnalizerPresenter(_viewFactory, _serviceFactory).Run();
+            new AnalyzerPresenter(_viewFactory, _serviceFactory).Run();
             _view.Close();
         }
 

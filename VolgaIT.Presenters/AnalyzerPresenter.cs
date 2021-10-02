@@ -7,14 +7,14 @@ using VolgaIT.Views;
 
 namespace VolgaIT.Presenters
 {
-    public class AnalizerPresenter : PresenterBase, IPresenter
+    public class AnalyzerPresenter : PresenterBase, IPresenter
     {
         private readonly IAnalyzerView _view;
         private IWaitingView _waitingView;
         private IWordCounterConfigurator _configurator;
         private readonly IWordCountService _wordCounter;
 
-        public AnalizerPresenter(ViewFactory viewFactory, ServiceFactory serviceFactory) : base(viewFactory, serviceFactory)
+        public AnalyzerPresenter(ViewFactory viewFactory, ServiceFactory serviceFactory) : base(viewFactory, serviceFactory)
         {
             _view = viewFactory.AnalyzerView;
             _wordCounter = _serviceFactory.WordCountService;

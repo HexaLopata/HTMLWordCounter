@@ -31,7 +31,7 @@ namespace VolgaIT.BL
 
         private IHTMLReadingState _state = new WordReadingState();
         private readonly char[] _separators = new char[]
-        { ' ', ',', '.', ':', '!', '?', ';', '[', ']', '(', ')', '\n', '\t', '\r', '"', '{', '}', '…', '*', '»', '«', '’', '/' };
+        { ' ', ',', '.', ':', '!', '?', ';', '[', ']', '(', ')', '\n', '\t', '\r', '"', '{', '}', '…', '*', '»', '«', '’', '/', '=' };
         private readonly char[] _ignoredChars = new char[0];
         private readonly string[] _neitherWordNorSeparators = new string[] { "-", "–", "—" };
 
